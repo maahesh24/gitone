@@ -1,0 +1,97 @@
+}
+
+output "st    azurermnt_primary_b      source  {
+      version = ">= 3.0"
+    }
+  }st    }
+  }
+}
+
+provider "oi  }}
+E}
+
+cat   features {}
+}
+EOFto}
+EOF
+cat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafoc'Ecat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafocat > /terrafoc'Ecat > /terrafocat > /terrodcat > /terrafocat > /ter.tf <<'EOF'
+resource "azurerm_subnet" "subnet" {
+  name                 = var.subnet_name
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = var.virtual_network_name
+  address_prefixes     = [var.address_prefix]
+}
+EOF
+cat > modules/azurerm_subnet/output.tf <<'EOF'
+output "subnet_id" {
+  value = azurerm_subnet.subnet.id
+}
+
+output "subnet_address_prefix" {
+  value = azurerm_subnet.subnet.address_prefixes
+}
+EOF
+cat > modules/azurerm_subnet/terraform.tfvars <<'EOF'
+subnet_name          = "subnet-example"
+resource_group_name  = "rg-example"
+virtual_network_name = "vnet-example"
+address_prefix       = "10.0.1.0/24"
+EOF
+cat > modules/azurerm_virtual_network/provider.tf <<'EOF'
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+EOF
+cat > modules/azurerm_virtual_network/variables.tf <<'EOF'
+variable "virtual_network_name" {
+  type        = string
+  description = "Name of the virtual network."
+}
+
+variable "resource_group_name" {
+  type        = string
+  description = "Resource group name for the virtual network."
+}
+
+variable "location" {
+  type        = string
+  description = "Azure region for the virtual network."
+}
+
+variable "address_space" {
+  type        = list(string)
+  description = "Address space for the virtual network."
+}
+EOF
+cat > modules/azurerm_virtual_network/main.tf <<'EOF'
+resource "azurerm_virtual_network" "vnet" {
+  name                = var.virtual_network_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  address_space       = var.address_space
+}
+EOF
+cat > modules/azurerm_virtual_network/output.tf <<'EOF'
+output "virtual_network_id" {
+  value = azurerm_virtual_network.vnet.id
+}
+
+output "virtual_network_address_space" {
+  value = azurerm_virtual_network.vnet.address_space
+}
+EOF
+cat > modules/azurerm_virtual_network/terraform.tfvars <<'EOF'
+virtual_network_name = "vnet-example"
+resource_group_name  = "rg-example"
+location             = "eastus"
+address_space        = ["10.0.0.0/16"]
+EOF
